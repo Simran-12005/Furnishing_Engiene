@@ -1,0 +1,273 @@
+{
+  "_comment": "CONFIGURABLE CATALOG. Add rooms / categories / choices / measurements / formulas here — no code change needed. Choice types: single, boolean, multi. Rules: visible_if/required_if use {field,eq|neq|in|contains|gt|lt} or {all|any|not:[...]}. Multi-select options are exposed to formulas as <choice>_<slug> = 1/0 (e.g. addons_motorisation). Formula DSL: + - * /, ceil/floor/round/max/min, if(cond,a,b).",
+
+  "rooms": [
+    {"id": "living_room", "name": "Living Room", "icon": "🛋️",
+     "categories": ["curtain", "sheer_curtain", "roller_blind", "zebra_blind", "vertical_blind", "wooden_blind", "wallpaper", "mosquito_mesh"],
+     "placements": [{"type": "window", "label": "Main Window"}, {"type": "sliding door", "label": "Balcony Door"}],
+     "defaults": {"curtain": {"pleat_style": "Eyelet", "side": "Both"}}},
+    {"id": "bedroom", "name": "Bedroom", "icon": "🛏️",
+     "categories": ["curtain", "sheer_curtain", "roman_blind", "roller_blind", "zebra_blind", "wooden_blind", "wallpaper", "mosquito_mesh"],
+     "placements": [{"type": "window", "label": "Window 1"}],
+     "defaults": {"curtain": {"fabric_type": "Blackout", "pleat_style": "Pinch"}, "zebra_blind": {"zebra_fabric": "Blackout"}, "roman_blind": {"lining": "Yes"}}},
+    {"id": "kitchen", "name": "Kitchen", "icon": "🍳",
+     "categories": ["roller_blind", "venetian_blind", "mosquito_mesh"],
+     "placements": [{"type": "window", "label": "Kitchen Window"}],
+     "defaults": {"roller_blind": {"blind_material": "PVC"}, "venetian_blind": {"slat_material": "Aluminium"}}},
+    {"id": "bathroom", "name": "Bathroom", "icon": "🚿",
+     "categories": ["roller_blind", "venetian_blind"],
+     "placements": [{"type": "window", "label": "Bathroom Window"}],
+     "defaults": {"roller_blind": {"blind_material": "PVC"}, "venetian_blind": {"slat_material": "PVC"}}},
+    {"id": "dining_room", "name": "Dining Room", "icon": "🍽️",
+     "categories": ["curtain", "sheer_curtain", "roller_blind", "vertical_blind", "wooden_blind", "wallpaper"],
+     "placements": [{"type": "window", "label": "Window 1"}],
+     "defaults": {"curtain": {"pleat_style": "Pinch"}}},
+    {"id": "balcony", "name": "Balcony", "icon": "🌿",
+     "categories": ["curtain", "roller_blind", "vertical_blind", "mosquito_mesh"],
+     "placements": [{"type": "sliding door", "label": "Balcony Door"}],
+     "defaults": {"roller_blind": {"blind_material": "PVC"}, "curtain": {"fabric_type": "Light"}}},
+    {"id": "study", "name": "Study / Office", "icon": "📚",
+     "categories": ["roller_blind", "zebra_blind", "venetian_blind", "vertical_blind", "wooden_blind", "wallpaper"],
+     "placements": [{"type": "window", "label": "Window 1"}],
+     "defaults": {"zebra_blind": {"zebra_fabric": "Light Filtering"}}}
+  ],
+
+  "categories": [
+    {
+      "id": "curtain",
+      "name": "Curtain",
+      "sub_category": "Pleated Curtain",
+      "image": "/images/curtain.svg",
+      "choices": [
+        {"name": "fabric_type", "label": {"en": "Fabric Type", "hi": "कपड़ा प्रकार", "mr": "कापड प्रकार", "ta": "துணி வகை", "te": "గుడ్డ రకం", "bn": "কাপড়ের ধরন", "gu": "કાપડ પ્રકાર"}, "hint": {"en": "Main curtain cloth. Blackout blocks light.", "hi": "मुख्य परदे का कपड़ा। ब्लैकआउट रोशनी रोकता है।", "mr": "मुख्य पडद्याचे कापड. ब्लॅकआउट प्रकाश रोखतो.", "ta": "முதன்மை திரைச்சீலை துணி. பிளாக்அவுட் வெளிச்சத்தைத் தடுக்கும்.", "te": "ప్రధాన కర్టెన్ గుడ్డ. బ్లాక్అవుట్ వెలుతురును ఆపుతుంది.", "bn": "মূল পর্দার কাপড়। ব্ল্যাকআউট আলো আটকায়।", "gu": "મુખ્ય પડદાનું કાપડ. બ્લેકઆઉટ પ્રકાશ રોકે છે."}, "type": "single", "options": [{"value": "Light", "icon": "/images/shade-light.svg"}, {"value": "Cotton", "icon": "/images/shade-cotton.svg"}, {"value": "Blackout", "icon": "/images/shade-blackout.svg"}], "required": true, "default": "Cotton"},
+        {"name": "lining", "label": {"en": "Lining", "hi": "लाइनिंग", "mr": "लाइनिंग", "ta": "லைனிங்", "te": "లైనింగ్", "bn": "লাইনিং", "gu": "લાઇનિંગ"}, "hint": {"en": "Extra backing layer for darkening / insulation. None = no lining.", "hi": "अंधेरे/इन्सुलेशन के लिए अतिरिक्त परत। None = कोई लाइनिंग नहीं।", "mr": "अंधार/इन्सुलेशनसाठी अतिरिक्त थर. None = लाइनिंग नाही.", "ta": "இருட்டாக்க / வெப்பத் தடுப்புக்கு கூடுதல் அடுக்கு. None = லைனிங் இல்லை.", "te": "చీకటి/ఇన్సులేషన్ కోసం అదనపు పొర. None = లైనింగ్ లేదు.", "bn": "অন্ধকার/ইনসুলেশনের জন্য অতিরিক্ত স্তর। None = লাইনিং নেই।", "gu": "અંધારું/ઇન્સ્યુલેશન માટે વધારાનું પડ. None = લાઇનિંગ નથી."}, "type": "single", "options": [{"value": "None", "icon": "/images/shade-none.svg"}, {"value": "Cotton", "icon": "/images/shade-cotton.svg"}, {"value": "Blackout", "icon": "/images/shade-blackout.svg"}, {"value": "Thermal", "icon": "/images/shade-thermal.svg"}], "required": true, "default": "None"},
+        {"name": "pleat_style", "label": {"en": "Curtain Style", "hi": "परदा स्टाइल", "mr": "पडदा स्टाइल", "ta": "திரை வகை", "te": "కర్టెన్ శైలి", "bn": "পর্দার ধরন", "gu": "પડદા સ્ટાઇલ"}, "hint": {"en": "Eyelet = metal rings; Pinch = stitched pleats; Ripplefold = wave on track.", "hi": "Eyelet = धातु के छल्ले; Pinch = सिलाई वाली चुन्नट; Ripplefold = ट्रैक पर लहर।", "mr": "Eyelet = धातूच्या रिंग; Pinch = शिवलेल्या चुण्या; Ripplefold = ट्रॅकवर लाट.", "ta": "Eyelet = உலோக வளையங்கள்; Pinch = தைத்த மடிப்புகள்; Ripplefold = டிராக்கில் அலை.", "te": "Eyelet = లోహపు రింగులు; Pinch = కుట్టిన మడతలు; Ripplefold = ట్రాక్‌పై అల.", "bn": "Eyelet = ধাতব রিং; Pinch = সেলাই করা ভাঁজ; Ripplefold = ট্র্যাকে ঢেউ।", "gu": "Eyelet = ધાતુની રિંગ; Pinch = સિલાઈવાળી ચૂંટ; Ripplefold = ટ્રેક પર લહેર."}, "type": "single", "options": [{"value": "Eyelet", "icon": "/images/op-eyelet.svg"}, {"value": "Pinch", "icon": "/images/op-pinch.svg"}, {"value": "Ripplefold", "icon": "/images/op-ripplefold.svg"}], "required": true, "default": "Eyelet"},
+        {"name": "hardware", "label": {"en": "Hardware (rail/rod)", "hi": "हार्डवेयर (रेल/रॉड)", "mr": "हार्डवेअर (रेल/रॉड)", "ta": "ஹார்டுவேர் (கம்பி)", "te": "హార్డ్‌వేర్ (రాడ్)", "bn": "হার্ডওয়্যার (রড)", "gu": "હાર્ડવેર (રોડ)"}, "hint": {"en": "What the curtain hangs from — a rod or a track.", "hi": "परदा किस पर टंगेगा — रॉड या ट्रैक।", "mr": "पडदा कशावर टांगेल — रॉड किंवा ट्रॅक.", "ta": "திரை எதில் தொங்கும் — கம்பி அல்லது டிராக்.", "te": "కర్టెన్ దేనిపై వేలాడుతుంది — రాడ్ లేదా ట్రాక్.", "bn": "পর্দা কীসে ঝুলবে — রড না ট্র্যাক।", "gu": "પડદો શેના પર લટકશે — રોડ કે ટ્રેક."}, "type": "single", "options": [{"value": "Rod", "icon": "/images/hw-rod.svg"}, {"value": "Metal Track", "icon": "/images/hw-mtrack.svg"}, {"value": "I-Track", "icon": "/images/hw-itrack.svg"}, {"value": "Ripple Track", "icon": "/images/hw-ripple.svg"}, {"value": "Roman Track", "icon": "/images/hw-roman.svg"}], "required": true, "default": "Rod"},
+        {"name": "side", "label": {"en": "Curtain Position", "hi": "परदे की स्थिति", "mr": "पडद्याची स्थिती", "ta": "திரை நிலை", "te": "కర్టెన్ స్థానం", "bn": "পর্দার অবস্থান", "gu": "પડદાની સ્થિતિ"}, "hint": {"en": "Front = main curtain, Back = sheer/net, Both = layered.", "hi": "Front = मुख्य परदा, Back = जाली/नेट, Both = दोनों परतें।", "mr": "Front = मुख्य पडदा, Back = जाळी/नेट, Both = दोन्ही थर.", "ta": "Front = முதன்மை திரை, Back = வலை/நெட், Both = இரண்டும்.", "te": "Front = ప్రధాన కర్టెన్, Back = నెట్, Both = రెండూ.", "bn": "Front = মূল পর্দা, Back = জাল/নেট, Both = দুটোই।", "gu": "Front = મુખ્ય પડદો, Back = જાળી/નેટ, Both = બંને."}, "type": "single", "options": [{"value": "Front", "icon": "/images/side-front.svg"}, {"value": "Back", "icon": "/images/side-back.svg"}, {"value": "Both", "icon": "/images/side-both.svg"}], "required": true, "default": "Front"},
+        {"name": "operation", "label": {"en": "Open / Cord side", "hi": "खुलने / डोरी की तरफ", "mr": "उघडण्याची / दोरीची बाजू", "ta": "திறப்பு / கயிறு பக்கம்", "te": "తెరిచే / తాడు వైపు", "bn": "খোলা / দড়ির দিক", "gu": "ખુલવાની / દોરી બાજુ"}, "hint": {"en": "Which side the pull cord / opening is on.", "hi": "डोरी / खुलने की तरफ कौन सी है।", "mr": "दोरी / उघडण्याची बाजू कोणती.", "ta": "இழுவை கயிறு / திறப்பு எந்தப் பக்கம்.", "te": "తాడు / తెరిచే వైపు ఏది.", "bn": "টানা দড়ি / খোলার দিক কোনটি।", "gu": "દોરી / ખુલવાની બાજુ કઈ છે."}, "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"},
+        {"name": "fixing_type", "label": {"en": "Fix on", "hi": "कहाँ लगाएँ", "mr": "कुठे बसवायचे", "ta": "எங்கே பொருத்த", "te": "ఎక్కడ అమర్చాలి", "bn": "কোথায় লাগবে", "gu": "ક્યાં લગાવવું"}, "hint": {"en": "Where it mounts — the wall above, or the ceiling.", "hi": "कहाँ लगेगा — ऊपर दीवार पर, या छत पर।", "mr": "कुठे बसेल — वरच्या भिंतीवर, की छतावर.", "ta": "எங்கே பொருத்துவது — மேலே சுவரில் அல்லது கூரையில்.", "te": "ఎక్కడ అమర్చాలి — పైన గోడపై లేదా పైకప్పుపై.", "bn": "কোথায় লাগবে — উপরের দেওয়ালে, না সিলিংয়ে।", "gu": "ક્યાં લાગશે — ઉપર દીવાલ પર, કે છત પર."}, "type": "single", "options": [{"value": "Wall", "icon": "/images/op-wall.svg"}, {"value": "Ceiling", "icon": "/images/op-ceiling.svg"}], "required": true, "default": "Wall"},
+        {"name": "fitting", "label": {"en": "Fitting", "hi": "फिटिंग", "mr": "फिटिंग", "ta": "பொருத்துதல்", "te": "ఫిట్టింగ్", "bn": "ফিটিং", "gu": "ફિટિંગ"}, "hint": {"en": "Inside the window recess, or outside covering the frame.", "hi": "खिड़की के अंदर, या बाहर फ्रेम ढकते हुए।", "mr": "खिडकीच्या आत, की बाहेर फ्रेम झाकत.", "ta": "ஜன்னலுக்கு உள்ளே, அல்லது வெளியே சட்டத்தை மறைத்து.", "te": "కిటికీ లోపల, లేదా బయట ఫ్రేమ్‌ను కప్పుతూ.", "bn": "জানালার ভিতরে, না বাইরে ফ্রেম ঢেকে।", "gu": "બારીની અંદર, કે બહાર ફ્રેમ ઢાંકીને."}, "type": "single", "options": [{"value": "Inside frame", "icon": "/images/op-inside.svg"}, {"value": "Outside frame", "icon": "/images/op-outside.svg"}], "required": true, "default": "Inside frame"},
+        {"name": "window_type", "label": {"en": "Window Type", "hi": "खिड़की प्रकार", "mr": "खिडकी प्रकार", "ta": "ஜன்னல் வகை", "te": "కిటికీ రకం", "bn": "জানালার ধরন", "gu": "બારી પ્રકાર"}, "hint": {"en": "Jaego = normal straight window; Bay = projecting / angled window.", "hi": "Jaego = सामान्य सीधी खिड़की; Bay = बाहर निकली/कोणीय खिड़की।", "mr": "Jaego = सामान्य सरळ खिडकी; Bay = बाहेर आलेली/कोनाची खिडकी.", "ta": "Jaego = சாதாரண நேரான ஜன்னல்; Bay = வெளியே நீட்டிய ஜன்னல்.", "te": "Jaego = సాధారణ నేరుగా కిటికీ; Bay = బయటకు చొచ్చుకొచ్చిన కిటికీ.", "bn": "Jaego = সাধারণ সোজা জানালা; Bay = বেরিয়ে থাকা জানালা।", "gu": "Jaego = સામાન્ય સીધી બારી; Bay = બહાર નીકળેલી બારી."}, "type": "single", "options": [{"value": "Jaego (straight)", "icon": "/images/win-jaego.svg"}, {"value": "Bay window", "icon": "/images/win-bay.svg"}], "required": true, "default": "Jaego (straight)"},
+        {"name": "ceiling_type", "label": {"en": "Ceiling Type", "hi": "छत प्रकार", "mr": "छत प्रकार", "ta": "கூரை வகை", "te": "పైకప్పు రకం", "bn": "সিলিং ধরন", "gu": "છત પ્રકાર"}, "hint": {"en": "Concrete slab or POP false ceiling — changes the fixing.", "hi": "कंक्रीट छत या POP फॉल्स सीलिंग — फिटिंग बदलती है।", "mr": "काँक्रीट छत की POP फॉल्स सीलिंग — फिटिंग बदलते.", "ta": "கான்கிரீட் அல்லது POP கூரை — பொருத்தலை மாற்றும்.", "te": "కాంక్రీట్ లేదా POP సీలింగ్ — ఫిక్సింగ్ మారుతుంది.", "bn": "কংক্রিট বা POP সিলিং — ফিটিং বদলায়।", "gu": "કોંક્રીટ કે POP સીલિંગ — ફિટિંગ બદલે છે."}, "type": "single", "options": [{"value": "Concrete", "icon": "/images/ceil-concrete.svg"}, {"value": "POP (false ceiling)", "icon": "/images/ceil-pop.svg"}], "default": "Concrete", "visible_if": {"field": "fixing_type", "eq": "Ceiling"}},
+        {"name": "addons", "label": {"en": "Add-ons", "hi": "अतिरिक्त", "mr": "अतिरिक्त", "ta": "கூடுதல்", "te": "అదనపు", "bn": "অতিরিক্ত", "gu": "વધારાનું"}, "hint": {"en": "Extra accessories — tap any that are needed.", "hi": "अतिरिक्त सामान — जो चाहिए उसे चुनें।", "mr": "अतिरिक्त साहित्य — जे हवे ते निवडा.", "ta": "கூடுதல் பாகங்கள் — தேவையானதைத் தேர்வு செய்யவும்.", "te": "అదనపు సామాగ్రి — కావాల్సినవి ఎంచుకోండి.", "bn": "অতিরিক্ত জিনিস — যা দরকার বেছে নিন।", "gu": "વધારાની વસ્તુઓ — જે જોઈએ તે પસંદ કરો."}, "type": "multi", "options": ["Lead wire", "Belt (plain/Round)", "Belt (Loop)/Velcro", "Side Hook", "Wand", "Motorisation"]},
+        {"name": "hardware_details", "label": {"en": "Hardware Details", "hi": "हार्डवेयर विवरण", "mr": "हार्डवेअर तपशील", "ta": "ஹார்டுவேர் விவரம்", "te": "హార్డ్‌వేర్ వివరాలు", "bn": "হার্ডওয়্যার বিবরণ", "gu": "હાર્ડવેર વિગત"}, "hint": {"en": "Rail end-parts and supports needed.", "hi": "रेल के सिरे के पुर्जे और सपोर्ट।", "mr": "रेलच्या टोकाचे भाग आणि सपोर्ट.", "ta": "ரயில் முனை பாகங்கள் மற்றும் ஆதரவுகள்.", "te": "రైలు చివరి భాగాలు మరియు సపోర్ట్‌లు.", "bn": "রেলের প্রান্তের অংশ ও সাপোর্ট।", "gu": "રેલના છેડાના ભાગ અને સપોર્ટ."}, "type": "multi", "options": ["T Elbow", "Finial", "End Cap", "Wall Bracket", "Pulley Track", "S. Support", "D. Support"]}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 240, "required": true},
+        {"name": "height", "label": {"en": "Height / Drop", "hi": "ऊँचाई / ड्रॉप", "mr": "उंची / ड्रॉप", "ta": "உயரம் / டிராப்", "te": "ఎత్తు / డ్రాప్", "bn": "উচ্চতা / ড্রপ", "gu": "ઊંચાઈ / ડ્રોપ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 200, "required": true},
+        {"name": "panels", "label": {"en": "Panels (PNL)", "hi": "पैनल (PNL)", "mr": "पॅनेल (PNL)", "ta": "பேனல் (PNL)", "te": "ప్యానెల్ (PNL)", "bn": "প্যানেল (PNL)", "gu": "પેનલ (PNL)"}, "unit": "pcs", "input_type": "number", "min": 1, "max": 20, "required": false}
+      ],
+      "formulas": [
+        
+        {"name": "fullness", "label": "Fullness", "output": false, "expression": "if(pleat_style == 'Ripplefold', 2.5, if(pleat_style == 'Pinch', 2.0, 1.5))", "depends_on": ["pleat_style"]},
+        {"name": "side_mult", "label": "Layer multiplier", "output": false, "expression": "if(side == 'Both', 2, 1)", "depends_on": ["side"]},
+        {"name": "fabric_meters", "label": "Fabric required", "unit": "m", "expression": "(width * 2.54 * fullness * side_mult + 30) / 100", "depends_on": ["width", "fullness", "side_mult"], "rounding": "round"},
+        {"name": "track_length", "label": "Track / rod length", "unit": "cm", "expression": "width * 2.54 + 6", "depends_on": ["width"], "rounding": "round"},
+        {"name": "brackets", "label": "Brackets", "unit": "pcs", "expression": "ceil(track_length / 90)", "depends_on": ["track_length"], "rounding": "ceil"},
+        {"name": "lining_meters", "label": "Lining fabric", "unit": "m", "expression": "fabric_meters", "depends_on": ["fabric_meters"], "rounding": "round", "visible_if": {"field": "lining", "neq": "None"}},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(fabric_meters * if(fabric_type == 'Blackout', 750, 500) + fabric_meters * if(lining == 'None', 0, if(lining == 'Thermal', 280, if(lining == 'Blackout', 220, 150))) + track_length * 1.2 + addons_motorisation * 3500 + 600)", "depends_on": ["fabric_meters", "fabric_type", "lining", "track_length", "addons_motorisation"], "rounding": "round"}
+        
+      ]
+    },
+    {
+      "id": "sheer_curtain",
+      "name": "Sheer Curtain",
+      "sub_category": "Sheer / Net",
+      "image": "/images/sheer_curtain.svg",
+      "choices": [
+        {"name": "header_type", "label": "Header", "type": "single", "options": [{"value": "Eyelet", "icon": "/images/hdr-eyelet.svg"}, {"value": "Rod Pocket", "icon": "/images/hdr-rodpocket.svg"}, {"value": "Pleated", "icon": "/images/hdr-pleated.svg"}], "required": true, "default": "Eyelet"},
+        {"name": "operation", "label": "Operation", "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"},
+        {"name": "fixing_type", "label": "Fixing Type", "type": "single", "options": [{"value": "Wall", "icon": "/images/op-wall.svg"}, {"value": "Ceiling", "icon": "/images/op-ceiling.svg"}], "required": true, "default": "Wall"},
+        {"name": "addons", "label": "Add-ons", "type": "multi", "options": ["Lead wire", "Side Hook", "Wand", "Motorisation"]}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 240, "required": true},
+        {"name": "height", "label": {"en": "Height / Drop", "hi": "ऊँचाई / ड्रॉप", "mr": "उंची / ड्रॉप", "ta": "உயரம் / டிராப்", "te": "ఎత్తు / డ్రాప్", "bn": "উচ্চতা / ড্রপ", "gu": "ઊંચાઈ / ડ્રોપ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 200, "required": true}
+      ],
+      "formulas": [
+        {"name": "sheer_mult", "label": "Sheer multiplier", "output": false, "expression": "if(header_type == 'Pleated', 2.3, 2.0)", "depends_on": ["header_type"]},
+        {"name": "fabric_meters", "label": "Sheer fabric", "unit": "m", "expression": "(width * 2.54 * sheer_mult + 20) / 100", "depends_on": ["width", "sheer_mult"], "rounding": "round"},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(fabric_meters * 350 + addons_motorisation * 3500 + 400)", "depends_on": ["fabric_meters", "addons_motorisation"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "roller_blind",
+      "name": "Roller Blind",
+      "sub_category": "Roller Blind",
+      "image": "/images/roller_blind.svg",
+      "choices": [
+        {"name": "blind_material", "label": "Material", "type": "single", "options": [{"value": "Fabric", "icon": "/images/mat-fabric.svg"}, {"value": "PVC", "icon": "/images/mat-pvc.svg"}, {"value": "Bamboo", "icon": "/images/mat-bamboo.svg"}], "required": true, "default": "Fabric"},
+        {"name": "operation", "label": "Operation", "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"},
+        {"name": "fixing_type", "label": "Fixing Type", "type": "single", "options": [{"value": "Wall", "icon": "/images/op-wall.svg"}, {"value": "Ceiling", "icon": "/images/op-ceiling.svg"}], "required": true, "default": "Wall"},
+        {"name": "fitting", "label": "Fitting", "type": "single", "options": ["Inside", "Outside"], "required": true, "default": "Inside"},
+        {"name": "addons", "label": "Add-ons", "type": "multi", "options": ["Side Hook", "Wand", "Motorisation"]}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 160, "required": true},
+        {"name": "height", "label": {"en": "Height", "hi": "ऊँचाई", "mr": "उंची", "ta": "உயரம்", "te": "ఎత్తు", "bn": "উচ্চতা", "gu": "ઊંચાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 160, "required": true}
+      ],
+      "formulas": [
+        {"name": "mat_rate", "label": "Material rate", "output": false, "expression": "if(blind_material == 'Bamboo', 120, if(blind_material == 'PVC', 90, 80))", "depends_on": ["blind_material"]},
+        {"name": "area_sqft", "label": "Area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "tube_length", "label": "Tube length", "unit": "inch", "expression": "width + 1", "depends_on": ["width"], "rounding": "round"},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(area_sqft * mat_rate + addons_motorisation * 3500 + 250)", "depends_on": ["area_sqft", "mat_rate", "addons_motorisation"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "roman_blind",
+      "name": "Roman Blind",
+      "sub_category": "Roman Blind",
+      "image": "/images/roman_blind.svg",
+      "choices": [
+        {"name": "fabric_type", "label": "Fabric", "type": "single", "options": [{"value": "Cotton", "icon": "/images/shade-cotton.svg"}, {"value": "Linen", "icon": "/images/shade-linen.svg"}, {"value": "Velvet", "icon": "/images/shade-velvet.svg"}], "required": true, "default": "Cotton"},
+        {"name": "lining", "label": "Add lining?", "type": "boolean", "options": [{"value": "Yes", "icon": "/images/val-yes.svg"}, {"value": "No", "icon": "/images/val-no.svg"}], "default": "No"},
+        {"name": "operation", "label": "Operation", "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"},
+        {"name": "fixing_type", "label": "Fixing Type", "type": "single", "options": [{"value": "Wall", "icon": "/images/op-wall.svg"}, {"value": "Ceiling", "icon": "/images/op-ceiling.svg"}], "required": true, "default": "Wall"}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 120, "required": true},
+        {"name": "height", "label": {"en": "Height", "hi": "ऊँचाई", "mr": "उंची", "ta": "உயரம்", "te": "ఎత్తు", "bn": "উচ্চতা", "gu": "ઊંચાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 160, "required": true}
+      ],
+      "formulas": [
+        {"name": "area_sqft", "label": "Fabric area", "unit": "sqft", "expression": "(width * (height + 6)) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "rings_required", "label": "Rings required", "unit": "pcs", "expression": "ceil(height / 8) * 3", "depends_on": ["height"], "rounding": "ceil"},
+        {"name": "lining_area", "label": "Lining area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round", "visible_if": {"field": "lining", "eq": "Yes"}},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(area_sqft * 130 + rings_required * 5 + if(lining == 'Yes', 400, 0) + 400)", "depends_on": ["area_sqft", "rings_required", "lining"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "venetian_blind",
+      "name": "Venetian Blind",
+      "sub_category": "Venetian",
+      "image": "/images/venetian_blind.svg",
+      "choices": [
+        {"name": "slat_material", "label": "Slat Material", "type": "single", "options": [{"value": "Aluminium", "icon": "/images/mat-aluminium.svg"}, {"value": "Wood", "icon": "/images/mat-wood.svg"}, {"value": "PVC", "icon": "/images/mat-pvc.svg"}], "required": true, "default": "Aluminium"},
+        {"name": "slat_size", "label": "Slat Size", "type": "single", "options": [{"value": "25mm", "icon": "/images/sz-25.svg"}, {"value": "50mm", "icon": "/images/sz-50.svg"}], "required": true, "default": "25mm"},
+        {"name": "operation", "label": "Operation", "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"},
+        {"name": "fixing_type", "label": "Fixing Type", "type": "single", "options": [{"value": "Wall", "icon": "/images/op-wall.svg"}, {"value": "Ceiling", "icon": "/images/op-ceiling.svg"}], "required": true, "default": "Wall"}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 120, "required": true},
+        {"name": "height", "label": {"en": "Height", "hi": "ऊँचाई", "mr": "उंची", "ta": "உயரம்", "te": "ఎత్తు", "bn": "উচ্চতা", "gu": "ઊંચાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 120, "required": true}
+      ],
+      "formulas": [
+        {"name": "slat_pitch", "label": "Slat pitch", "output": false, "expression": "if(slat_size == '50mm', 2, 1)", "depends_on": ["slat_size"]},
+        {"name": "slats_count", "label": "Number of slats", "unit": "pcs", "expression": "ceil(height / slat_pitch)", "depends_on": ["height", "slat_pitch"], "rounding": "ceil"},
+        {"name": "mat_rate", "label": "Material rate", "output": false, "expression": "if(slat_material == 'Wood', 180, if(slat_material == 'Aluminium', 110, 90))", "depends_on": ["slat_material"]},
+        {"name": "area_sqft", "label": "Area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(area_sqft * mat_rate + 300)", "depends_on": ["area_sqft", "mat_rate"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "zebra_blind",
+      "name": "Zebra (Day-Night) Blind",
+      "sub_category": "Zebra",
+      "image": "/images/zebra_blind.svg",
+      "choices": [
+        {"name": "zebra_fabric", "label": "Fabric", "type": "single", "options": [{"value": "Light Filtering", "icon": "/images/shade-light.svg"}, {"value": "Blackout", "icon": "/images/shade-blackout.svg"}], "required": true, "default": "Light Filtering"},
+        {"name": "operation", "label": "Operation", "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"},
+        {"name": "fixing_type", "label": "Fixing Type", "type": "single", "options": [{"value": "Wall", "icon": "/images/op-wall.svg"}, {"value": "Ceiling", "icon": "/images/op-ceiling.svg"}], "required": true, "default": "Wall"},
+        {"name": "addons", "label": "Add-ons", "type": "multi", "options": ["Side Hook", "Wand", "Motorisation"]}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 140, "required": true},
+        {"name": "height", "label": {"en": "Height", "hi": "ऊँचाई", "mr": "उंची", "ta": "உயரம்", "te": "ఎత్తు", "bn": "উচ্চতা", "gu": "ઊંચાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 140, "required": true}
+      ],
+      "formulas": [
+        {"name": "area_sqft", "label": "Area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "tube_length", "label": "Tube length", "unit": "inch", "expression": "width + 1", "depends_on": ["width"], "rounding": "round"},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(area_sqft * 140 + addons_motorisation * 3500 + 300)", "depends_on": ["area_sqft", "addons_motorisation"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "mosquito_mesh",
+      "name": "Mosquito Mesh",
+      "sub_category": "Mesh",
+      "image": "/images/mosquito_mesh.svg",
+      "choices": [
+        {"name": "mesh_type", "label": "Mesh Type", "type": "single", "options": [{"value": "Fiberglass", "icon": "/images/mat-fabric.svg"}, {"value": "Aluminium", "icon": "/images/mat-aluminium.svg"}, {"value": "Stainless Steel", "icon": "/images/mat-steel.svg"}], "required": true, "default": "Fiberglass"},
+        {"name": "frame_color", "label": "Frame Colour", "type": "single", "options": [{"value": "White", "icon": "/images/col-white.svg"}, {"value": "Brown", "icon": "/images/col-brown.svg"}, {"value": "Black", "icon": "/images/col-black.svg"}], "required": true, "default": "White"},
+        {"name": "fitting", "label": "Fitting", "type": "single", "options": ["Inside", "Outside"], "required": true, "default": "Inside"}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 120, "required": true},
+        {"name": "height", "label": {"en": "Height", "hi": "ऊँचाई", "mr": "उंची", "ta": "உயரம்", "te": "ఎత్తు", "bn": "উচ্চতা", "gu": "ઊંચાઈ"}, "unit": "inch", "input_type": "number", "min": 5, "max": 120, "required": true}
+      ],
+      "formulas": [
+        {"name": "area_sqft", "label": "Mesh area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "frame_length", "label": "Frame length", "unit": "inch", "expression": "2 * (width + height)", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(area_sqft * 70 + 250)", "depends_on": ["area_sqft"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "wallpaper",
+      "name": "Wallpaper",
+      "sub_category": "Wall Covering",
+      "image": "/images/wallpaper.svg",
+      "choices": [
+        {"name": "finish", "label": "Finish", "type": "single", "options": [{"value": "Matte", "icon": "/images/fin-matte.svg"}, {"value": "Textured", "icon": "/images/fin-textured.svg"}, {"value": "Vinyl", "icon": "/images/fin-vinyl.svg"}], "required": true, "default": "Matte"},
+        {"name": "pattern_match", "label": "Pattern match?", "type": "boolean", "options": [{"value": "Yes", "icon": "/images/val-yes.svg"}, {"value": "No", "icon": "/images/val-no.svg"}], "default": "No"},
+        {"name": "washable", "label": "Washable?", "type": "boolean", "options": [{"value": "Yes", "icon": "/images/val-yes.svg"}, {"value": "No", "icon": "/images/val-no.svg"}], "default": "Yes"}
+      ],
+      "measurements": [
+        {"name": "width", "label": "Wall Width", "unit": "inch", "input_type": "number", "min": 12, "max": 480, "required": true},
+        {"name": "height", "label": "Wall Height", "unit": "inch", "input_type": "number", "min": 12, "max": 200, "required": true}
+      ],
+      "formulas": [
+        {"name": "area_sqft", "label": "Wall area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "roll_coverage", "label": "Roll coverage", "output": false, "expression": "if(finish == 'Vinyl', 56, 50)", "depends_on": ["finish"]},
+        {"name": "wastage", "label": "Wastage", "output": false, "expression": "if(pattern_match == 'Yes', 1.15, 1.05)", "depends_on": ["pattern_match"]},
+        {"name": "rolls", "label": "Rolls required", "unit": "rolls", "expression": "ceil(area_sqft * wastage / roll_coverage)", "depends_on": ["area_sqft", "wastage", "roll_coverage"], "rounding": "ceil"},
+        {"name": "roll_rate", "label": "Roll rate", "output": false, "expression": "if(finish == 'Vinyl', 1200, if(finish == 'Textured', 950, 700))", "depends_on": ["finish"]},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(rolls * roll_rate + 300)", "depends_on": ["rolls", "roll_rate"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "vertical_blind",
+      "name": "Vertical Blind",
+      "sub_category": "Vertical",
+      "image": "/images/vertical_blind.svg",
+      "choices": [
+        {"name": "vane_material", "label": "Vane Material", "type": "single", "options": [{"value": "Fabric", "icon": "/images/mat-fabric.svg"}, {"value": "PVC", "icon": "/images/mat-pvc.svg"}], "required": true, "default": "Fabric"},
+        {"name": "vane_width", "label": "Vane Width", "type": "single", "options": [{"value": "89mm", "icon": "/images/sz-89.svg"}, {"value": "127mm", "icon": "/images/sz-127.svg"}], "required": true, "default": "89mm"},
+        {"name": "operation", "label": "Operation", "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"},
+        {"name": "fixing_type", "label": "Fixing Type", "type": "single", "options": [{"value": "Wall", "icon": "/images/op-wall.svg"}, {"value": "Ceiling", "icon": "/images/op-ceiling.svg"}], "required": true, "default": "Wall"}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 10, "max": 200, "required": true},
+        {"name": "height", "label": {"en": "Height", "hi": "ऊँचाई", "mr": "उंची", "ta": "உயரம்", "te": "ఎత్తు", "bn": "উচ্চতা", "gu": "ઊંચાઈ"}, "unit": "inch", "input_type": "number", "min": 10, "max": 160, "required": true}
+      ],
+      "formulas": [
+        {"name": "vane_pitch", "label": "Vane pitch", "output": false, "expression": "if(vane_width == '127mm', 5, 3.5)", "depends_on": ["vane_width"]},
+        {"name": "vanes_count", "label": "Number of vanes", "unit": "pcs", "expression": "ceil(width / vane_pitch)", "depends_on": ["width", "vane_pitch"], "rounding": "ceil"},
+        {"name": "area_sqft", "label": "Area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "vane_rate", "label": "Vane rate", "output": false, "expression": "if(vane_material == 'PVC', 95, 110)", "depends_on": ["vane_material"]},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(area_sqft * vane_rate + 350)", "depends_on": ["area_sqft", "vane_rate"], "rounding": "round"}
+      ]
+    },
+    {
+      "id": "wooden_blind",
+      "name": "Wooden / Bamboo Blind",
+      "sub_category": "Wooden",
+      "image": "/images/wooden_blind.svg",
+      "choices": [
+        {"name": "wood_type", "label": "Wood Type", "type": "single", "options": [{"value": "Basswood", "icon": "/images/mat-basswood.svg"}, {"value": "Bamboo", "icon": "/images/mat-bamboo.svg"}, {"value": "Engineered", "icon": "/images/mat-engineered.svg"}], "required": true, "default": "Basswood"},
+        {"name": "slat_size", "label": "Slat Size", "type": "single", "options": [{"value": "50mm", "icon": "/images/sz-50.svg"}, {"value": "63mm", "icon": "/images/sz-63.svg"}], "required": true, "default": "50mm"},
+        {"name": "valance", "label": "Valance?", "type": "boolean", "options": [{"value": "Yes", "icon": "/images/val-yes.svg"}, {"value": "No", "icon": "/images/val-no.svg"}], "default": "Yes"},
+        {"name": "operation", "label": "Operation", "type": "single", "options": [{"value": "Left", "icon": "/images/op-left.svg"}, {"value": "Right", "icon": "/images/op-right.svg"}], "required": true, "default": "Right"}
+      ],
+      "measurements": [
+        {"name": "width", "label": {"en": "Width", "hi": "चौड़ाई", "mr": "रुंदी", "ta": "அகலம்", "te": "వెడల్పు", "bn": "প্রস্থ", "gu": "પહોળાઈ"}, "unit": "inch", "input_type": "number", "min": 10, "max": 120, "required": true},
+        {"name": "height", "label": {"en": "Height", "hi": "ऊँचाई", "mr": "उंची", "ta": "உயரம்", "te": "ఎత్తు", "bn": "উচ্চতা", "gu": "ઊંચાઈ"}, "unit": "inch", "input_type": "number", "min": 10, "max": 140, "required": true}
+      ],
+      "formulas": [
+        {"name": "slat_pitch", "label": "Slat pitch", "output": false, "expression": "if(slat_size == '63mm', 2.5, 2)", "depends_on": ["slat_size"]},
+        {"name": "slats_count", "label": "Number of slats", "unit": "pcs", "expression": "ceil(height / slat_pitch)", "depends_on": ["height", "slat_pitch"], "rounding": "ceil"},
+        {"name": "area_sqft", "label": "Area", "unit": "sqft", "expression": "(width * height) / 144", "depends_on": ["width", "height"], "rounding": "round"},
+        {"name": "wood_rate", "label": "Wood rate", "output": false, "expression": "if(wood_type == 'Bamboo', 160, if(wood_type == 'Engineered', 210, 260))", "depends_on": ["wood_type"]},
+        {"name": "valance_length", "label": "Valance length", "unit": "inch", "expression": "width + 4", "depends_on": ["width"], "rounding": "round", "visible_if": {"field": "valance", "eq": "Yes"}},
+        {"name": "price", "label": "Estimated price", "unit": "₹", "output": false, "expression": "round(area_sqft * wood_rate + if(valance == 'Yes', 400, 0) + 400)", "depends_on": ["area_sqft", "wood_rate", "valance"], "rounding": "round"}
+      ]
+    }
+  ]
+}

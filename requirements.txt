@@ -1,0 +1,3 @@
+# Furnishing engine now persists to PostgreSQL.
+# Install into the active environment, e.g.:  uv pip install -r requirements.txt
+psycopg2-binary>=2.9
